@@ -1,4 +1,4 @@
-# 📦 **Cloud Inventory Management System**
+# 📦 **Cloud Based Inventory Management System**
 
 A full-stack **cloud-native inventory management system** built using **AWS Serverless Backend** and a modern **frontend dashboard UI**.
 This project demonstrates hands-on skills in **Lambda, API Gateway, DynamoDB, Serverless Framework, and Web Development**.
