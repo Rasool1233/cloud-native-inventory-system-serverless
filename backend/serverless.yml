@@ -1,0 +1,99 @@
+service: inventory-dashboard-backend
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: nodejs18.x
+  stage: dev
+  environment:
+    TABLE_NAME: ${self:service}-InventoryTable-${self:provider.stage}
+    SNS_TOPIC_ARN: { Ref: LowStockTopic }
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:Query
+            - dynamodb:BatchWriteItem
+            - dynamodb:Scan
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-InventoryTable-${self:provider.stage}"
+        - Effect: Allow
+          Action:
+            - sns:Publish
+          Resource:
+            - "*"
+
+functions:
+  api:
+    handler: lambda/api.handler
+    events:
+      - httpApi:
+          path: /products
+          method: GET
+      - httpApi:
+          path: /products
+          method: POST
+      - httpApi:
+          path: /products/{id}
+          method: GET
+      - httpApi:
+          path: /products/{id}
+          method: PATCH
+
+  streamProcessor:
+    handler: lambda/stream_processor.handler
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - InventoryTable
+              - StreamArn
+          batchSize: 100
+          startingPosition: TRIM_HORIZON
+
+resources:
+  Resources:
+    InventoryTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-InventoryTable-${self:provider.stage}
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+          - AttributeName: productId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        GlobalSecondaryIndexes:
+          - IndexName: GSI1
+            KeySchema:
+              - AttributeName: productId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+    LowStockTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:service}-LowStockTopic-${self:provider.stage}
+
+outputs:
+  ApiEndpoint:
+    Description: "HTTP API endpoint"
+    Value: 
+      Ref: HttpApiGateway
