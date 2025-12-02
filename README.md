@@ -18,6 +18,24 @@ It includes:
 The Backend exposes secure REST APIs while the Frontend consumes them to perform CRUD operations.
 
 ---
+## 🖼️ Application Screenshots (LIVE Demo)
+
+### 📊 Dashboard Overview
+![Dashboard](inventory-dashboard/assets/screenshots/dashboard.png)
+
+### 📦 Products List
+![Products](inventory-dashboard/assets/screenshots/products.png)
+
+### ➕ Add Product
+![Add Product](inventory-dashboard/assets/screenshots/add-product.png)
+
+### 📄 Product Details
+![Product Details](inventory-dashboard/assets/screenshots/product-details.png)
+
+### 🔧 Adjust Stock
+![Adjust Stock](inventory-dashboard/assets/screenshots/adjust-stock.png)
+
+---
 
 ## 🧰 **Tech Stack**
 
