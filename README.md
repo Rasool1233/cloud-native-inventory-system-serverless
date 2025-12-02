@@ -18,6 +18,10 @@ It includes:
 The Backend exposes secure REST APIs while the Frontend consumes them to perform CRUD operations.
 
 ---
+## 🖼️ Live Project URL: [AWS Amplify](https://staging.dbo56xt30q44a.amplifyapp.com/)
+(If it’s not working, make sure the server is paused.)
+
+---
 ## 🖼️ Application Screenshots (LIVE Demo)
 
 ### 📊 Dashboard Overview
@@ -27,13 +31,13 @@ The Backend exposes secure REST APIs while the Frontend consumes them to perform
 ![Products](inventory-dashboard/assets/screenshots/products.png.png)
 
 ### ➕ Add Product
-![Add Product](inventory-dashboard/assets/screenshots/add-product.png)
+![Add Product](inventory-dashboard/assets/screenshots/add-product.png.png)
 
 ### 📄 Product Details
-![Product Details](inventory-dashboard/assets/screenshots/product-details.png)
+![Product Details](inventory-dashboard/assets/screenshots/product-details.png.png)
 
 ### 🔧 Adjust Stock
-![Adjust Stock](inventory-dashboard/assets/screenshots/adjust-stock.png)
+![Adjust Stock](inventory-dashboard/assets/screenshots/adjust-stock.png.png)
 
 ---
 
